@@ -27,7 +27,7 @@ permissions:
 jobs:
   build:
     name: build ${{ matrix.os }}/${{ matrix.arch }}
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     strategy:
       fail-fast: false
       matrix:
@@ -113,7 +113,7 @@ jobs:
   # el entitlement.
   vz:
     name: build kling-vz darwin/arm64
-    runs-on: macos-14
+    runs-on: [self-hosted, macOS, ARM64]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -138,7 +138,7 @@ jobs:
   release:
     name: release
     needs: [build, vz]
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     outputs:
       version: ${{ steps.ver.outputs.version }}
     steps:
@@ -253,7 +253,7 @@ jobs:
     # Después de la release: si fallan los binarios o la release, no se publica
     # una imagen de una versión que no existe.
     needs: release
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     permissions:
       contents: read
       packages: write

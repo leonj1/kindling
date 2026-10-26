@@ -20,7 +20,7 @@ on:
 jobs:
   modulo:
     name: make test cross (${{ matrix.dir }})
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     strategy:
       fail-fast: false
       matrix:
@@ -53,7 +53,7 @@ jobs:
   # dependencias, pero su replace al núcleo del mismo commit es obligatorio.
   raiz-sin-deps:
     name: núcleo sin dependencias ni cgo
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     env:
       GOWORK: 'off'
       GOTOOLCHAIN: local
@@ -88,7 +88,7 @@ jobs:
   # módulo nuevo sin `use`, una suma que falta), aquí se ve.
   workspace:
     name: go.work
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, x64]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
@@ -107,7 +107,7 @@ jobs:
   # una interfaz con un doble), así que valen en un runner sin virtualización.
   vz:
     name: kling-vz (macOS)
-    runs-on: macos-14
+    runs-on: [self-hosted, macOS, ARM64]
     defaults:
       run:
         working-directory: vz
